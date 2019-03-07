@@ -2,10 +2,7 @@ package com.in28minutes.rest.webservices.restfulwebservices.user;
 
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Component
 public class UserDaoService
@@ -40,5 +37,24 @@ public class UserDaoService
         Optional<User> user = users.stream().filter(userObj -> userObj.getId() == id).findFirst();
 
         return user.isPresent()? user.get() : null;
+    }
+
+
+    public User deleteById(int id)
+    {
+        Iterator<User> iterator = users.iterator();
+
+        while(iterator.hasNext())
+        {
+            User user = iterator.next();
+
+            if(user.getId() == id)
+            {
+                iterator.remove();
+                return user;
+            }
+        }
+
+        return null;
     }
 }
